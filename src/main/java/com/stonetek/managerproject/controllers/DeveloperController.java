@@ -2,7 +2,6 @@ package com.stonetek.managerproject.controllers;
 
 
 import com.stonetek.managerproject.dto.DeveloperDTO;
-import com.stonetek.managerproject.entities.Developer;
 import com.stonetek.managerproject.services.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
