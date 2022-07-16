@@ -25,7 +25,7 @@ public class Developer implements Serializable {
 
     }
 
-    public Developer(long id, String developerName, String email, Date birthDate, Double salary, Integer workload) {
+    public Developer(Long id, String developerName, String email, Date birthDate, Double salary, Integer workload) {
         super();
         this.id = id;
         this.developerName = developerName;

@@ -2,7 +2,9 @@ package com.stonetek.managerproject.services;
 
 
 import com.stonetek.managerproject.dto.DeveloperDTO;
+import com.stonetek.managerproject.dto.ProjectDTO;
 import com.stonetek.managerproject.entities.Developer;
+import com.stonetek.managerproject.entities.Project;
 import com.stonetek.managerproject.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +23,13 @@ public class DeveloperService {
     public List<DeveloperDTO> findAll() {
         List<Developer> list = repository.findAllByOrderByDeveloperNameAsc();
         return list.stream().map(x -> new DeveloperDTO(x)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public DeveloperDTO insert(DeveloperDTO dto) {
+        Developer developer = new Developer(null, dto.getDeveloperName(), dto.getEmail(), dto.getBirthDate(), dto.getSalary()
+        , dto.getWorkload());
+        developer = repository.save(developer);
+        return new DeveloperDTO(developer);
     }
 }
