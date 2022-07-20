@@ -1,45 +1,23 @@
-package com.stonetek.managerproject.entities;
+package com.stonetek.managerproject.dto.response;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-
-@Entity
-@Table(name = "tb_developers")
-public class Developer implements Serializable {
+public class DeveloperResponse implements Serializable {
 
     private static final long serialVersionUID = 1l;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String developerName;
     private String email;
-
     private Date birthDate;
     private Double salary;
     private Integer workload;
 
-    public Developer() {
-
-    }
-
-    public Developer(Long id, String developerName, String email, Date birthDate, Double salary, Integer workload) {
-        super();
-        this.id = id;
-        this.developerName = developerName;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.salary = salary;
-        this.workload = workload;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -81,18 +59,5 @@ public class Developer implements Serializable {
 
     public void setWorkload(Integer workload) {
         this.workload = workload;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Developer)) return false;
-        Developer developer = (Developer) o;
-        return getId() == developer.getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }

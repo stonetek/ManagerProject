@@ -1,86 +1,50 @@
-import './styles.css';
+import { Link } from "react-router-dom";
 import SETA from '../../assets/img/seta.jpg';
-import { Link } from 'react-router-dom';
-import { BsPencil, BsTrash } from 'react-icons/bs';
-import { BiSelection } from 'react-icons/bi';
+import { BsTrash, BsPencil } from 'react-icons/bs';
+import { BiSelection } from "react-icons/bi";
 import { FcSearch } from "react-icons/fc";
-import { useEffect } from 'react';
-import axios from 'axios';
-
-
-function Developer(){
-
-  useEffect(() => {
-  axios.get("localhost:8080/developers")
-    .then(response => {
-      console.log(response.data);
-    });  
-  }, []);
 
 
 
+function Projects(){
   return (
-      <div className="container">
+    <div className="container">
         <div className="card">
         <div className='container-link'>
-        <Link to={"/"}><img src={SETA} alt="voltar" /></Link>
+        <Link to={"/"}><img src={SETA} alt="voltar"/></Link>
         </div>
-          <h2>DESENVOLVEDORES</h2>
+          <h2>Projetos</h2>
           <div>
                         
              <div className="form-control-container">
              <FcSearch className="mt-1 absolute w-9 h-10 ml-80"/>
-              <input className="form-control" type="text" />
+              <input className="form-control" type="text"/>
             </div>
 
 
-          </div>
+                    </div>
           <div className='table'>
             <table className='devs'>
               <thead>
                 <tr>
                   <td className="show-after576">Id</td>
-                  <td>Nome</td>
-                  <td>E-mail</td>
-                  <td className="show-after992">Data de nascimento</td>
-                  <td className="show-after992">Salario</td>
-                  <td className="show-after576">Carga horaria</td>
+                  <td>Nome do Projeto</td>
+                  <td>Nome do Cliente</td>
+                  <td className="show-after992">Data de Inicio</td>
+                  <td className="show-after992">Prazo</td>
+                  <td className="show-after576">Orçamento</td>
                   <td className="show-after992">Ação</td>
                 </tr>
               </thead>
 
               <tbody>
                 <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
-                  <td className="show-after576">
-                      <div className="flex items-center gap-8">
-                        <button className="w-3">
-                          <BsTrash className="w-20 h-6"/>
-                        </button>
-
-                        <button className="w-3">
-                          <BsPencil className="w-20 h-6"/>
-                        </button> 
-
-                        <button className="w-3"> 
-                          <BiSelection className="w-20 h-6"/>
-                        </button>
-                      </div> 
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
+                  <td className="show-after576">#284</td>
+                  <td>Streamer Games</td>
+                  <td>Akemy Phanda</td>
+                  <td className="show-after992">21/02/2001</td>
+                  <td className="show-after992">6 meses</td>
+                  <td className="show-after576">R$ 8.000,00</td>
                   <td className="show-after576">
                   <div className="flex items-center gap-8">
                         <button className="w-3">
@@ -99,12 +63,36 @@ function Developer(){
                 </tr>
 
                 <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
+                <td className="show-after576">#284</td>
+                  <td>Streamer Games</td>
+                  <td>Akemy Phanda</td>
+                  <td className="show-after992">21/02/2001</td>
+                  <td className="show-after992">6 meses</td>
+                  <td className="show-after576">R$ 8.000,00</td>
+                  <td className="show-after576">
+                  <div className="flex items-center gap-8">
+                        <button className="w-3">
+                          <BsTrash className="w-20 h-6"/>
+                        </button>
+
+                        <button className="w-3">
+                          <BsPencil className="w-20 h-6"/>
+                        </button> 
+
+                        <button className="w-3"> 
+                          <BiSelection className="w-20 h-6"/>
+                        </button>
+                      </div> 
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="show-after576">#284</td>
+                  <td>Streamer Games</td>
+                  <td>Akemy Phanda</td>
+                  <td className="show-after992">21/02/2001</td>
+                  <td className="show-after992">6 meses</td>
+                  <td className="show-after576">R$ 8.000,00</td>
                   <td className="show-after576">
                   <div className="flex items-center gap-8">
                         <button className="w-3">
@@ -130,4 +118,4 @@ function Developer(){
   );
 }
 
-export default Developer;
+export default Projects;

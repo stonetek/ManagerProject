@@ -1,16 +1,22 @@
-package com.stonetek.managerproject.dto;
+package com.stonetek.managerproject.entities;
 
-import com.stonetek.managerproject.entities.Project;
-
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Set;
 
-public class ProjectDTO implements Serializable {
+
+@Entity
+@Table(name = "tb_projects")
+public class Project implements Serializable {
 
     private static final long serialVersionUID = 1l;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String projectName;
     private String clientName;
@@ -18,28 +24,27 @@ public class ProjectDTO implements Serializable {
     private String deadline;
     private Double budget;
 
-    private List<DeveloperDTO> developers = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(name = "tb_bond",
+//    joinColumns = @JoinColumn(name = "project_id"),
+//    inverseJoinColumns = @JoinColumn(name = "developer_id"))
+//    private Set<Developer> developers = new HashSet<>();
 
-    public ProjectDTO() {
+    @ManyToMany(mappedBy = "projectList")
+    private List<Developer> developerList;
+
+    public Project() {
+
     }
 
-    public ProjectDTO(Long id, String projectName, String clientName, LocalDate date, String deadline, Double budget) {
+    public Project(Long id, String projectName, String clientName, LocalDate date, String deadline, Double budget) {
+        super();
         this.id = id;
         this.projectName = projectName;
         this.clientName = clientName;
         this.date = date;
         this.deadline = deadline;
         this.budget = budget;
-    }
-
-    public ProjectDTO(Project entity) {
-        id = entity.getId();
-        projectName = entity.getProjectName();
-        clientName = entity.getClientName();
-        date = entity.getDate();
-        deadline = entity.getDeadline();
-        budget = entity.getBudget();
-        developers = entity.getDevelopers().stream().map(x -> new DeveloperDTO(x)).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -90,8 +95,24 @@ public class ProjectDTO implements Serializable {
         this.budget = budget;
     }
 
-    public List<DeveloperDTO> getDevelopers() {
-        return developers;
+    public List<Developer> getDeveloperList() {
+        return developerList;
     }
 
+    public void setDeveloperList(List<Developer> developerList) {
+        this.developerList = developerList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return getId().equals(project.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

@@ -48,8 +48,35 @@ a, a:hover, a:visited {
 
 .link-container {
   width: 100%;
-  margin-top: 12rem;
+  margin-top: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 35px;
+  flex-direction: column;
 }
+
+.link-container img {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  margin-left: 6.5rem;
+}
+
+.link-container2 {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  flex-direction: column;
+}
+
+.link-container2 img {
+  width: 150px;
+  height: 70px;
+  border-radius: 10px;
+  margin-left: .75rem;
+} 
+
