@@ -8,6 +8,7 @@ import com.stonetek.managerproject.exception.DeveloperNotFoundException;
 import com.stonetek.managerproject.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,8 +43,7 @@ public class DeveloperService {
 //        return null;
 //    }
 
-
-    public List<DeveloperResponse> findAll() {
+    public List<DeveloperResponse> findAll(Pageable pageable) {
         List<Developer> developerList = repository.findAllByOrderByDeveloperNameAsc();
         return DeveloperMapper.toList(developerList);
     }

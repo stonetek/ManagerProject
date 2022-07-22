@@ -58,7 +58,7 @@
 }
 
 .table tbody tr {
-    height: 74px;
+    height: 95px;
     border-top: 1px solid #5F6E82;
     text-align: center;
 }
@@ -74,10 +74,15 @@
 .show-after576 {
     display: none;
 }
+.show-after576-action {
+    display: none;
+}
+
 
 .show-after992 {
     display: none;
 }
+
 
 @media (min-width: 576px) {
     .show-after576 {

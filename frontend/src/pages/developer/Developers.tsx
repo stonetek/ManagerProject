@@ -4,17 +4,20 @@ import { Link } from 'react-router-dom';
 import { BsPencil, BsTrash } from 'react-icons/bs';
 import { BiSelection } from 'react-icons/bi';
 import { FcSearch } from "react-icons/fc";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Developers } from '../../types/Developer';
+import { fetchDevelopers } from '../../api';
 
 
 function Developer(){
 
+  const [developers, setDevelopers] = useState<Developers[]>([]);
+  console.log(developers);
+
   useEffect(() => {
-  axios.get("localhost:8080/developers")
-    .then(response => {
-      console.log(response.data);
-    });  
+  fetchDevelopers().then(response => setDevelopers(response.data))
+  .catch(error => console.log(error))
   }, []);
 
 
