@@ -35,12 +35,11 @@
 }
 
 .table {
-   
     display: flex;
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
-    
+    margin-left: 20rem;
 }
 
 .table thead {

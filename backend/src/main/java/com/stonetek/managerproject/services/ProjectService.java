@@ -4,6 +4,7 @@ import com.stonetek.managerproject.entities.Project;
 import com.stonetek.managerproject.repositories.DeveloperRepository;
 import com.stonetek.managerproject.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ProjectService {
     private DeveloperRepository developerRepository;
 
 
-    public List<Project> findAll() {
+    public List<Project> findAll(Pageable pageable) {
         return repository.findAllByOrderByClientNameAsc();
     }
 

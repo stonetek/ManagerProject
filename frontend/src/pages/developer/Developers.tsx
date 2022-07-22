@@ -5,18 +5,22 @@ import { BsPencil, BsTrash } from 'react-icons/bs';
 import { BiSelection } from 'react-icons/bi';
 import { FcSearch } from "react-icons/fc";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Developers } from '../../types/Developer';
+import { Developers, DevelopersPage } from '../../types/Developer';
 import { fetchDevelopers } from '../../api';
 
 
 function Developer(){
 
-  const [developers, setDevelopers] = useState<Developers[]>([]);
-  console.log(developers);
+  const [page, setPage] = useState<DevelopersPage>({
+    first: true,
+    last: true,
+    number: 0,
+    totalElements: 0,
+    totalPages: 0
+  });
 
   useEffect(() => {
-  fetchDevelopers().then(response => setDevelopers(response.data))
+  fetchDevelopers().then(response => setPage(response.data))
   .catch(error => console.log(error))
   }, []);
 
@@ -42,24 +46,23 @@ function Developer(){
             <table className='devs'>
               <thead>
                 <tr>
-                  <td className="show-after576">Id</td>
                   <td>Nome</td>
                   <td>E-mail</td>
                   <td className="show-after992">Data de nascimento</td>
                   <td className="show-after992">Salario</td>
                   <td className="show-after576">Carga horaria</td>
-                  <td className="show-after992">Ação</td>
+                  <td className="show-after576">Ação</td>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
+                {page.content?.map(dev =>(
+                  <tr key={dev.id}>
+                  <td>{dev.developerName}</td>
+                  <td>{dev.email}</td>
+                  <td className="show-after992">{dev.birthDate}</td>
+                  <td className="show-after992">{dev.salary.toFixed(2)}</td>
+                  <td className="show-after576">{dev.workload}</td>
                   <td className="show-after576">
                       <div className="flex items-center gap-8">
                         <button className="w-3">
@@ -76,55 +79,7 @@ function Developer(){
                       </div> 
                   </td>
                 </tr>
-
-                <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
-                  <td className="show-after576">
-                  <div className="flex items-center gap-8">
-                        <button className="w-3">
-                          <BsTrash className="w-20 h-6"/>
-                        </button>
-
-                        <button className="w-3">
-                          <BsPencil className="w-20 h-6"/>
-                        </button> 
-
-                        <button className="w-3"> 
-                          <BiSelection className="w-20 h-6"/>
-                        </button>
-                      </div> 
-                  </td>
-                </tr>
-
-                <tr>
-                  <td className="show-after576">#555</td>
-                  <td>Pedro Paulo</td>
-                  <td>pedropaulo@gmail.com</td>
-                  <td className="show-after992">31/05/1977</td>
-                  <td className="show-after992">R$ 5.000,00</td>
-                  <td className="show-after576">8hs</td>
-                  <td className="show-after576">
-                  <div className="flex items-center gap-8">
-                        <button className="w-3">
-                          <BsTrash className="w-20 h-6"/>
-                        </button>
-
-                        <button className="w-3">
-                          <BsPencil className="w-20 h-6"/>
-                        </button> 
-
-                        <button className="w-3"> 
-                          <BiSelection className="w-20 h-6"/>
-                        </button>
-                      </div> 
-                  </td>
-                </tr>
-
+                ))}
               </tbody>
             </table>
           </div>

@@ -8,6 +8,7 @@ import com.stonetek.managerproject.entities.Project;
 import com.stonetek.managerproject.services.ProjectService;
 import com.stonetek.managerproject.util.ResourceUriUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +37,8 @@ public class ProjectController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<ProjectResponse>> findAll() {
-        List<Project> projectList = service.findAll();
+    public ResponseEntity<List<ProjectResponse>> findAll(Pageable pageable) {
+        List<Project> projectList = service.findAll(pageable);
         return ResponseEntity.ok().body(ProjectMapper.toList(projectList));
     }
 

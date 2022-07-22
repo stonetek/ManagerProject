@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface DeveloperRepository extends PagingAndSortingRepository<Developer, Long> {
+public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
     List<Developer> findAllByOrderByDeveloperNameAsc();
 }

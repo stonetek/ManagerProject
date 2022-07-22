@@ -8,7 +8,6 @@ import com.stonetek.managerproject.entities.Developer;
 import com.stonetek.managerproject.services.DeveloperService;
 import com.stonetek.managerproject.util.ResourceUriUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

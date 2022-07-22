@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 
-public interface ProjectRepository extends PagingAndSortingRepository<Project, Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     List<Project> findAllByOrderByClientNameAsc();
 }

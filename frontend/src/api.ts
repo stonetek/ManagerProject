@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_URL } from "./utils/requests";
 
-const API_URL = 'localhost:8080';
+const API_URL = BASE_URL;
 
 export function fetchDevelopers() {
-    return axios(`${API_URL}/developers`)
+    return axios.get(`${API_URL}/developers`)
 }
