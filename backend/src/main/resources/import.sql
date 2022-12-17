@@ -1,0 +1,35 @@
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Streamer Nyghts','WillTub','2021-02-14','6 meses',6000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Receitas da Tia','Restaurante Dinas','2011-08-20','10 meses',10000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Cursos de Desenho','Iza Phandinha','2021-12-03','4 meses',4000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Jogos Infantis','Thyago','2019-06-04','8 meses',8000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Dr Tooth','Clinica Tooth','2022-02-14','12 meses',12000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Maquinas Incriveis','Lab Machines','2022-07-13','5 meses',5000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Truques Maneiros','Truques e Magicas','2015-02-12','7 meses',7000.0);
+INSERT INTO tb_projects(project_name,client_name,date,deadline,budget) VALUES ('Carros Futuros','Future Motors','2020-04-08','9 meses',9000.0);
+
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Pedro Paulo','pedropaulo@gmail.com','2021-02-14',6000.0,8);
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Arwen Undomiel','arwen258@gmail.com','2011-08-20',10000.0,10);
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Legolas','legolasverdefolha@gmail.com','2021-12-03',4000.0,12);
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Galadriel','galadriel222@gmail.com','2019-06-04',8000.0,9);
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Finarfin','finarfin@gmail.com','2022-02-14',12000.0,6);
+INSERT INTO tb_developers(developer_name,email,birth_date,salary,workload) VALUES ('Celebrimbor','celebrimbor@gmail.com','2022-07-13',5000.0,8);
+
+INSERT INTO tb_bond (project_id, developer_id) VALUES (1 , 1);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (1 , 4);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (2 , 2);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (2 , 5);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (2 , 6);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (3 , 3);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (3 , 4);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (4 , 2);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (4 , 6);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (5 , 4);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (5 , 6);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (6 , 5);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (6 , 1);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (7 , 6);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (7 , 5);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (8 , 2);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (8 , 5);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (3 , 1);
+INSERT INTO tb_bond (project_id, developer_id) VALUES (7 , 3);
