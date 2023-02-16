@@ -1,0 +1,68 @@
+.table {
+    width: 100%;
+    height: 90%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.table thead {
+    height: 55px;
+    font-size: 16px;
+    color: #E9E9E9;
+    font-weight: 700;
+    text-align: center;
+}
+
+.table tbody {
+    font-size: 14px;
+    font-weight: 400;
+    color: #CFCFCF;
+}
+
+.table tbody tr {
+    height: 74px;
+    border-top: 1px solid #5F6E82;
+    text-align: center;
+}   
+
+.table tbody tr:hover > td {
+    background-color: #384459;
+}
+
+.show-after576 {
+    display: none;
+}
+
+.show-after992 {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .show-after576 {
+        display: table-cell;
+    }
+
+    .card {
+        padding: 35px;
+    }
+
+    .table tbody tr {
+        height: 55px;
+    }
+
+    .table tbody {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 992px) {
+    .show-after992 {
+        display: table-cell;
+    }
+}
+
+.show-after576 button:hover {
+    background-color: #5F6E82;
+    border-radius: 20px;
+}

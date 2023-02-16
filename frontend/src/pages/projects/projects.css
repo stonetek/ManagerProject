@@ -1,0 +1,109 @@
+.card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 95%;
+    margin-top: 8rem;
+    background-color: #283142;
+    border-radius: 10px;
+    padding: 30px 10px;
+
+}
+
+.card h2 {
+    color: #676fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-control-container {
+    margin-bottom: 2rem;
+    max-width: 300px;
+}
+
+.form-control {
+    width: 100%;
+    height: 46px;
+    background-color: #1B2531;
+    border: 1px solid #384459;
+    border-radius: 5px;
+    color: #9AAABE;
+    padding: 0 20px;
+    font-size: 18px;
+
+}
+
+.table {
+   
+    display: flex;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    
+}
+
+.table thead {
+    height: 55px;
+    font-size: 16px;
+    color: #E9E9E9;
+    font-weight: 700;
+    text-align: center;
+}
+
+.table tbody {
+    font-size: 14px;
+    font-weight: 400;
+    color: #CFCFCF;
+}
+
+.table tbody tr {
+    height: 95px;
+    border-top: 1px solid #5F6E82;
+    text-align: center;
+}
+
+.table tbody td {
+    width: 150px;
+}
+
+.table tbody tr:hover > td {
+    background-color: #384459;
+}
+
+.show-after576 {
+    display: none;
+}
+.show-after576-action {
+    display: none;
+}
+
+
+.show-after992 {
+    display: none;
+}
+
+
+@media (min-width: 576px) {
+    .show-after576 {
+        display: table-cell;
+    }
+
+    .card {
+        padding: 35px;
+    }
+
+    .table tbody tr {
+        height: 55px;
+    }
+
+    .table tbody {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 992px) {
+    .show-after992 {
+        display: table-cell;
+    }
+}
