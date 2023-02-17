@@ -41,11 +41,11 @@ public class Developer implements Serializable {
     @Column(name = "workload", nullable = false)
     private Integer workload;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-        CascadeType.REFRESH})
-    @JoinTable(name = "tb_bond", joinColumns = {
-            @JoinColumn(name = "developer_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "project_id", referencedColumnName = "id") })
+    
+    @JoinTable(name = "tb_bond", 
+    joinColumns = {@JoinColumn(name = "developer_id", referencedColumnName = "id") }, 
+    inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id") })
+    @ManyToMany
     private List<Project> projectList;
 
 }

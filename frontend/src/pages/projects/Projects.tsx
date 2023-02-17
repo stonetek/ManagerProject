@@ -28,7 +28,7 @@ function Projecting(){
   
   useEffect(() => {
     fetchProjects().then(response => setProjects(response.data))
-    .catch(error => alert('Not possible load!'))        
+    .catch(error => alert('Not possible load project!'))        
     }, []); 
 
   return (

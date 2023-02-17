@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
-    Project save(List<Project> projectList);
-
+    List<Project> findAllByOrderByProjectNameAsc();
 }

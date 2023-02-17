@@ -23,7 +23,7 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
 
     public List<ProjectResponse> listar() {
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectRepository.findAllByOrderByProjectNameAsc();
         return ProjectMapper.converter(projects);
     }
 

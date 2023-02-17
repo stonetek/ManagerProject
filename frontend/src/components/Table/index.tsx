@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { Developers } from '../../types/Developer';
 import { fetchDevelopers } from '../../api';
 import { formatLocalDate } from '../../utils/format';
-import { BASE_URL } from '../../utils/requests';
 import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 function DataTable() {
 
@@ -15,20 +15,17 @@ function DataTable() {
     
       useEffect(() => {
         fetchDevelopers().then(response => setDevelopers(response.data))
-        .catch(error => console.log(error))
+        .catch(error => alert('Not possible load developer!'))
       }, []);
       
-      function deletedeveloper(id: any) {
-        fetch(BASE_URL+`/api/developers/${id}`,{
-          method:'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
-        }).then(response => response.json())
-        .then(data => {
-          setDevelopers(developers.filter((developers: { id: any; }) => developers.id !== id))
-        })
-        .catch(err => console.log(err))
+      async function deleteDeveloper(id: number) {
+        try {
+          await api.delete(`api/developers/${id}`)
+          setDevelopers(developers.filter(dev => dev.id !== id))
+          alert('Delete Success')
+      } catch (error) {
+          alert('Delete failed! Try again!')
+      }
         }
     return (
         <div className='table'>
@@ -65,7 +62,7 @@ function DataTable() {
                               </button> 
 
                               <button className="w-14 h-10 flex-col flex items-center" 
-                              title="EXCLUIR" onClick={deletedeveloper}>
+                              title="EXCLUIR" onClick={() => deleteDeveloper(dev.id)}>
                                 <BsTrash className="w-20 h-6 mt-2" color="red"/> 
                               </button>
     

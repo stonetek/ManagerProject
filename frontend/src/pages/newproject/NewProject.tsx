@@ -30,7 +30,6 @@ function Newproject() {
             setDate(adjustedDate);
             setDeadline(response.data.deadline);
             setBudget(response.data.budget);
-            console.log(projectID);
         } catch (error) {
             alert('Error recovering project" Try again!');
             history('/projectslist')

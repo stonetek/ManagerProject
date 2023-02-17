@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 public class ResourceUriUtil {
-    public static void addUriInResponseHeader(Object idResource) {
+    @SuppressWarnings("null")
+	public static void addUriInResponseHeader(Object idResource) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(idResource)
                 .toUri();
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        @SuppressWarnings("null")
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         response.setHeader(HttpHeaders.LOCATION, uri.toString());
     }
 

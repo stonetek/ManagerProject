@@ -29,7 +29,6 @@ function NewDeveloper() {
             setBirthdate(adjustedDate);
             setSalary(response.data.salary);
             setWorkload(response.data.workload);
-            console.log(developerID);
         } catch (error) {
             alert('Error recovering developer" Try again!');
             history('/developer')
@@ -61,13 +60,12 @@ function NewDeveloper() {
                 });
             } else {
                 data.id = id;
-                await api.put('/api/developers', data, {
+                await api.put(`/api/developers/${developerID}`, data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
             }
-
             history('/developer')
         } catch (error) {
             alert('Error while recording developer Try again!')
@@ -116,7 +114,7 @@ function NewDeveloper() {
                 className="w-60 bg-red-400" />
                 
                 <button type="submit" onClick={saveOrUpdate} className="w-3/6 h-40 flex items-center justify-center" >
-                    {developerID === '0' ? "'Add'" : "'Update'"}
+                    {developerID === 'id' ? "'Add'" : "'Update'"}
                     <BiSend title="Adicionar" color="green" className="w-1/4 h-1/4" />
                 </button>
             </form>
