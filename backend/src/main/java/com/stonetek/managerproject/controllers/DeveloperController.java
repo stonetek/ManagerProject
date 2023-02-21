@@ -3,6 +3,10 @@ package com.stonetek.managerproject.controllers;
 import com.stonetek.managerproject.dto.request.DeveloperRequest;
 import com.stonetek.managerproject.dto.response.DeveloperResponse;
 import com.stonetek.managerproject.services.DeveloperService;
+//import com.stonetek.managerproject.dto.response.ProjectResponse;
+//import com.stonetek.managerproject.entities.Developer;
+//import com.stonetek.managerproject.entities.Project;
+//import com.stonetek.managerproject.services.ProjectService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/developers")
+@RequestMapping(value = "/api/developers")
 public class DeveloperController {
 
     private final DeveloperService developerService;
@@ -26,7 +30,7 @@ public class DeveloperController {
         return ResponseEntity.ok().body(developerService.listar());
     }
 
-    @GetMapping("/{idDeveloper}")
+    @GetMapping(path = "/{idDeveloper}")
     public ResponseEntity<DeveloperResponse> buscarPorId(@PathVariable Integer idDeveloper) {
         DeveloperResponse developer = developerService.buscarPorId(idDeveloper);
         return ResponseEntity.ok().body(developer);
@@ -38,14 +42,14 @@ public class DeveloperController {
         return ResponseEntity.status(HttpStatus.CREATED).body(developer);
     }
 
-    @PutMapping("/{idDeveloper}")
+    @PutMapping(path = "/{idDeveloper}")
     public ResponseEntity<DeveloperResponse> editar(@PathVariable Integer idDeveloper,
             @Valid @RequestBody DeveloperRequest request) {
         DeveloperResponse developer = developerService.editar(idDeveloper, request);
         return ResponseEntity.ok().body(developer);
     }
 
-    @DeleteMapping("/{idDeveloper}")
+    @DeleteMapping(path = "/{idDeveloper}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluir(@PathVariable Integer idDeveloper) {
         developerService.excluir(idDeveloper);

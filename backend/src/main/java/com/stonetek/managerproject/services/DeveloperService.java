@@ -20,10 +20,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DeveloperService {
 
+    
     private final DeveloperRepository developerRepository;
 
     public List<DeveloperResponse> listar() {
-        List<Developer> developers = developerRepository.findAll();
+        List<Developer> developers = developerRepository.findAllByOrderByDeveloperNameAsc();
         return DeveloperMapper.converter(developers);
     }
 

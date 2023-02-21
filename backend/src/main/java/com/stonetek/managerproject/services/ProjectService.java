@@ -20,10 +20,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectService {
 
+    
     private final ProjectRepository projectRepository;
 
     public List<ProjectResponse> listar() {
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectRepository.findAllByOrderByClientNameAsc();
         return ProjectMapper.converter(projects);
     }
 
@@ -58,4 +59,5 @@ public class ProjectService {
             throw new ProjectNotFoundException(idProject);
         }
     }
+
 }

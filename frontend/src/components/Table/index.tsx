@@ -5,30 +5,30 @@ import { useEffect, useState } from 'react';
 import { Developers } from '../../types/Developer';
 import { fetchDevelopers } from '../../api';
 import { formatLocalDate } from '../../utils/format';
-import { BASE_URL } from '../../utils/requests';
+import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 function DataTable() {
 
       
       const [developers, setDevelopers] = useState<Developers[]>([]);
-    
+      
+      async function deleteDeveloper(id: number) {
+        try {
+          await api.delete(`/api/developers/${id}`)
+
+          setDevelopers(developers.filter(dev => dev.id !== id))
+          alert('Delete Success!')
+        } catch (error) {
+          alert('Delete failed! Try again!')
+      }
+        }
+
       useEffect(() => {
         fetchDevelopers().then(response => setDevelopers(response.data))
         .catch(error => console.log(error))
       }, []);
-      
-      function deletedeveloper(id: any) {
-        fetch(BASE_URL+`/developers/${id}`,{
-          method:'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
-        }).then(response => response.json())
-        .then(data => {
-          setDevelopers(developers.filter((developers: { id: any; }) => developers.id !== id))
-        })
-        .catch(err => console.log(err))
-        }
+
     return (
         <div className='table'>
               <table>
@@ -54,14 +54,16 @@ function DataTable() {
                     <td className="show-after576">
                     <div className="flex items-center flex-row gap-1 w-52 h-12 ml-2">
                               <button className="w-14 h-10 flex-col flex items-center" 
-                              title="EXCLUIR" onClick={deletedeveloper}>
+                              title="EXCLUIR" onClick={() => deleteDeveloper(dev.id)}>
                                 <BsTrash className="w-20 h-6 mt-2" color="red"/> 
                               </button>
-    
+
+                              <Link to={`/developer/${dev.id}`}>
                               <button className="w-14 h-10 flex-col flex items-center" title="EDITAR">
                                 <BsPencil className="w-20 h-6 mt-2" color="yellow"/>
                               </button> 
-    
+                              </Link>
+
                               <button className="w-14 h-10 flex-col flex items-center" title="VINCULAR"> 
                                 <BiSelection className="w-20 h-6 mt-2" color="green"/>
                               </button>
@@ -75,7 +77,7 @@ function DataTable() {
     )
 }
 
-export default DataTable
+export default DataTable;
 
 function props(props: any) {
   throw new Error('Function not implemented.');

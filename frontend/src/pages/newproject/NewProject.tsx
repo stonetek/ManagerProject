@@ -15,23 +15,22 @@ function Newproject() {
     const [deadline, setDeadline] = useState('');
     const [ budget, setBudget] = useState('');
 
-    const {projectId} = useParams();
+    const {projectID} = useParams();
 
     const history = useNavigate();
 
     async function loadProject() {
         try {
-            const response = await api.get(`/projects/${projectId}`)
+            const response = await api.get(`/api/projects/${projectID}`)
             
             let adjustedDate = response.data.date.split("T", 10)[0];
-            
             setId(response.data.id);
             setProjectName(response.data.projectName);
             setClientName(response.data.clientName);
             setDate(adjustedDate);
             setDeadline(response.data.deadline);
             setBudget(response.data.budget);
-            console.log(projectId);
+            console.log(projectID);
         } catch (error) {
             alert('Error recovering project" Try again!');
             history('/projectslist')
@@ -39,9 +38,9 @@ function Newproject() {
     }
 
     useEffect(() => {
-        if (projectId === "0") return;
+        if (projectID === '0') return;
         else loadProject();
-    }, [projectId])
+    }, [projectID])
 
     async function saveOrUpdate(e:{ preventDefault: () => void; }) {
         e.preventDefault();
@@ -55,15 +54,15 @@ function Newproject() {
         }
 
         try {
-            if (projectId === '0') {
-                await api.post('/projects', data,{
+            if (projectID === '0') {
+                await api.post('/api/projects', data,{
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
             } else {
                 data.id = id;
-                await api.put('/projects', data, {
+                await api.put(`/api/projects/${projectID}`, data,{
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -77,19 +76,17 @@ function Newproject() {
     }
 
 
-
-
     return (
         <>
             <Header/>
             <div><Link to={'/projectslist'} className="text-center text-teal-700 " ><FcAdvance title='VOLTAR' className='w-32 h-20 rotate-180'/></Link></div>
             <div className="w-screen h-screen bg-gradient-to-t from-slate-700 flex flex-col justify-center items-center mt-10 ">
-                  <h1 className="text-5xl mb-10">{projectId === '0' ? "'Add'" : "'Update'"} project</h1>  
+                  <h1 className="text-5xl mb-10">{projectID === '0' ? "'Add'" : "'Update'"} Project</h1>  
                 <form 
-                    key={projectId}
+                    key={projectID}
                     onSubmit={saveOrUpdate}
                     className="bg-gradient-to-t from-zinc-300 w-3/6 h-3/4 
-                    flex flex-col items-center justify-center gap-3">
+                    flex flex-col items-center justify-center">
                     <label htmlFor="Nome" className="text-2xl text-rose-800" >Nome do Projeto</label>
                     <input type="text"
                     value={projectName}
@@ -121,7 +118,7 @@ function Newproject() {
                     className="w-60 bg-red-400" />
                     
                     <button type="submit" onClick={saveOrUpdate} className="w-3/6 h-40 flex items-center justify-center" >
-                        {projectId === '0' ? "'Add'" : "'Update'"}
+                        {projectID === 'id' ? "'Add'" : "'Update'"}
                         <BiSend title="Adicionar" color="green" className="w-1/4 h-1/4" />
                     </button>
                 </form>

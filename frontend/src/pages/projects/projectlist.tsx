@@ -3,15 +3,11 @@ import { BiSelection } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { FcAdvance } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchProjects} from "../../api";
 import Header from "../../components/header/Header";
 import { Projects } from "../../types/Projects";
 import { formatLocalDate } from "../../utils/format";
 import PROJ from '../../assets/img/project.jpg';
 import api from "../../services/api";
-
-
-
 
 
 function ProjectsList() {
@@ -24,7 +20,7 @@ function ProjectsList() {
 
   async function editProject(id:number) {
     try {
-      history(`/projectslist/new/${id}`)
+      history(`/api/projectslist/${id}`)
     } catch (error) {
       alert("Edit project failed! Try again!")
     }
@@ -32,16 +28,17 @@ function ProjectsList() {
 
   async function deleteProject(id: number) {
     try {
-        await api.delete(`projects/${id}`)
+        await api.delete(`/api/projects/${id}`)
 
         setProjects(projects.filter(proj => proj.id !== id))
+        alert('Delete Success!')
     } catch (error) {
         alert('Delete failed! Try again!')
     }
 }
 
 async function fetchMoreProjects() {
-  const response = await api.get(`/projects`, {
+  const response = await api.get(`/api/projects`, {
     params: {
       page: page,
       limit: 4,
@@ -93,12 +90,12 @@ async function fetchMoreProjects() {
                                 <BsTrash className="w-10 h-6 mt-2" color="red"/> 
                               </button>
     
-                              <button
-                              onClick={() => editProject(proj.id)}
-                              className="w-14 h-10 flex-col flex items-center" 
-                              title="EDITAR">
-                                <BsPencil className="w-10 h-6 mt-2" color="yellow"/>
-                              </button> 
+                              <Link
+                                to={`/projectslist/${proj.id}`}
+                                className="w-14 h-10 flex-col flex items-center" 
+                                title="EDITAR">
+                                  <BsPencil className="w-10 h-6 mt-2" color="yellow"/>
+                              </Link>  
     
                               <button className="w-14 h-10 flex-col flex items-center" title="VINCULAR"> 
                                 <BiSelection className="w-10 h-6 mt-2" color="green"/>
