@@ -31,6 +31,6 @@ public class Perfil implements Serializable {
         joinColumns = { @JoinColumn(name = "perfil_id", referencedColumnName = "id") },
         inverseJoinColumns = { @JoinColumn(name = "usuario_id", referencedColumnName = "id") }
     )
-    private List<Usuario> usuarioList;
+    private List<User> usuarioList;
 
 }
