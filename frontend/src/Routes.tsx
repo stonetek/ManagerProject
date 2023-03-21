@@ -5,12 +5,14 @@ import NewProject from "./pages/newproject/NewProject";
 import ProjectsList from "./pages/projects/projectlist";
 import Projecting from "./pages/projects/Projects";
 import NewDeveloper from "./pages/newdeveloper/NewDeveloper";
+import Login from "./pages/login/Login";
 
 function Routers () {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Home/>} />
+                <Route path='/' element={<Login/>} />
+                <Route path='/home' element={<Home/>} />
                 <Route path='/developer' element={<Developer/>} />
                 <Route path='/developer/:developerID' element={<NewDeveloper/>} />
                 <Route path='/developer/new/:developerID' element={<NewDeveloper/>} />
