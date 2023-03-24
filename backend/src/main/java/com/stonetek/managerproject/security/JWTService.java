@@ -3,7 +3,9 @@ package com.stonetek.managerproject.security;
 import java.util.Date;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import com.stonetek.managerproject.entities.User;
 
@@ -11,7 +13,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
+@RequiredArgsConstructor
+@Service
 public class JWTService {
 	private static final String mainKeyJWT = "secretKey";
 	

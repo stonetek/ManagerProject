@@ -1,4 +1,4 @@
-package com.stonetek.login;
+package com.stonetek.managerproject.login;
 
 import lombok.Getter;
 import lombok.Setter;

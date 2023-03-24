@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -47,37 +48,44 @@ public class User implements UserDetails, Serializable {
 
 	
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream().map(roles -> new SimpleGrantedAuthority(roles.getAuthority()))
 				.collect(Collectors.toList());
 	}
 
 	@Override
+	@JsonIgnore
 	public String getPassword() {
 		return senha;
 	}
 
 	@Override
+	@JsonIgnore
 	public String getUsername() {
 		return email;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isEnabled() {
 		return true;
 	}
