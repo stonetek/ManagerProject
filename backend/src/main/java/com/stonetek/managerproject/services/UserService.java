@@ -82,13 +82,4 @@ public class UserService  {
 
 
 		}
-
-    /*
-     * @Override public UserDetails loadUserByUsername(String username) throws
-     * UsernameNotFoundException { var user = repository.findByEmail(username); if
-     * (user != null) { return (UserDetails) user; } else { throw new
-     * UsernameNotFoundException("Username " + username + " not found"); }
-     *
-     * }
-     */
 }
