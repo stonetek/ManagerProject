@@ -1,33 +1,18 @@
 package com.stonetek.managerproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.*;
-
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
-@Setter
-@Getter
+
 @Entity
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tb_user")
-public class User implements UserDetails, Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,18 +25,69 @@ public class User implements UserDetails, Serializable {
     @Column(name = "senha", nullable = false)
     private String senha;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_user_role",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))	
-	private Set<Role> roles = new HashSet<>();
+	public User() {
+	}
 
-	
+	public User(Long id, String email, String senha) {
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	@Override
-	@JsonIgnore
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(senha, user.senha);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, email, senha);
+	}
+
+	//    @ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "tb_user_role",
+//		joinColumns = @JoinColumn(name = "user_id"),
+//		inverseJoinColumns = @JoinColumn(name = "role_id"))
+//	private Set<Role> roles = new HashSet<>();
+
+
+//	@Override
+//	@JsonIgnore
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return roles.stream().map(roles -> new SimpleGrantedAuthority(roles.getAuthority()))
+//				.collect(Collectors.toList());
+//	}
+
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(roles -> new SimpleGrantedAuthority(roles.getAuthority()))
-				.collect(Collectors.toList());
+		return null;
 	}
 
 	@Override

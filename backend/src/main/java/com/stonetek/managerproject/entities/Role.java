@@ -1,6 +1,7 @@
 package com.stonetek.managerproject.entities;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
