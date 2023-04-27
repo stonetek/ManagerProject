@@ -1,85 +1,115 @@
 package com.stonetek.managerproject.services;
 
+import com.stonetek.managerproject.dto.response.RoleDTO;
+import com.stonetek.managerproject.dto.response.UserDTO;
+import com.stonetek.managerproject.entities.Role;
 import com.stonetek.managerproject.entities.User;
-import com.stonetek.managerproject.exception.UserNotFoundException;
-import com.stonetek.managerproject.login.LoginResponse;
+import com.stonetek.managerproject.exception.EntityNotFoundException;
+import com.stonetek.managerproject.repositories.RoleRepository;
+import com.stonetek.managerproject.repositories.UserInsertDTO;
 import com.stonetek.managerproject.repositories.UserRepository;
-import com.stonetek.managerproject.securingweb.JWTService;
+import com.stonetek.managerproject.services.exceptions.DataBaseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.Collections;
-import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService implements UserDetailsService{
 
-    private static final String headerPrefix = "Bearer ";
-
-	@Autowired
-    private UserRepository userRepository;
+	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
-    private AuthenticationManager authenticationManager;
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
-	private JWTService jwtService;
+	private UserRepository userRepository;
 
 	@Autowired
-    private PasswordEncoder passwordEncoder;
+	private RoleRepository roleRepository;
 
-    public void excluir(Long idUser) {
-        try {
-            userRepository.deleteById(idUser);
-        } catch (EmptyResultDataAccessException ex) {
-            throw new UserNotFoundException(idUser);
-        }
-    }
-
-	public List<User> obterTodos() {
-		return userRepository.findAll();
+	@Transactional(readOnly = true)
+	public Page<UserDTO> findAllPage(Pageable pageable) {
+		Page<User> list = userRepository.findAll(pageable);
+		return list.map(x -> new UserDTO(x));
 	}
 
-    public Optional<User> buscarPorEmail(String email) {
-        return userRepository.buscarPorEmail(email);
-    }
-
-    public Optional<User> buscarPorId(Long id) { return userRepository.buscarPorId(id);}
-	
-	public User salvar(User user) {
-		user.setId(null);
-		
-		if(buscarPorEmail(user.getEmail()).isPresent()) {
-			throw new InputMismatchException("Já existe cadastro desse e-mail: " + user.getEmail());
-		}
-		
-		//Gerando hash da senha
-		String senha = passwordEncoder.encode(user.getSenha());
-		
-		user.setSenha(senha);
-		return userRepository.save(user);
+	@Transactional(readOnly = true)
+	public UserDTO findById(Long id) {
+		Optional<User> obj = userRepository.findById(id);
+		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new UserDTO(entity);
 	}
 
-	public LoginResponse logar(String email, String senha) {
-		//Autenticação ocorre aqui.
-		Authentication auth = authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(email, senha, Collections.emptyList()));
-			SecurityContextHolder.getContext().setAuthentication(auth);
+	@Transactional
+	public UserDTO insert(UserInsertDTO dto) {
+		User entity = new User();
+		copyDtoToEntity(dto, entity);
+		entity.setSenha(passwordEncoder.encode(dto.getSenha()));
+		entity = userRepository.save(entity);
+		return new UserDTO(entity);
+	}
 
-			String token = headerPrefix + jwtService.gerarToken(auth);
-
-			User user = userRepository.buscarPorEmail(email).get();
-
-			return new LoginResponse(token, user);
-
-
+	@Transactional
+	public UserDTO update(Long id, UserDTO dto) {
+		try {
+			User entity = userRepository.getOne(id);
+			copyDtoToEntity(dto, entity);
+			entity = userRepository.save(entity);
+			return new UserDTO(entity);
 		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found" + id);
+		}
+
+	}
+
+	public void delete(Long id) {
+		try {
+			userRepository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found" + id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataBaseException("Integrity Violation");
+		}
+	}
+
+	private void copyDtoToEntity(UserDTO dto, User entity) {
+		entity.setFirstName(dto.getFirstName());
+		entity.setLastName(dto.getLastName());
+		entity.setEmail(dto.getEmail());
+
+		entity.getRoles().clear();
+		for (RoleDTO roleDto: dto.getRoles()) {
+			Role role = roleRepository.getOne(roleDto.getId());
+			entity.getRoles().add(role);
+		}
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		User user = userRepository.findByEmail(username);
+		if (user == null) {
+			logger.error("User not Found" + username);
+			throw new UsernameNotFoundException("Email not found.");
+		}
+		logger.info("User found" + username);
+		return user;
+	}
 }

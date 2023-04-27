@@ -11,9 +11,7 @@ import com.stonetek.managerproject.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	List<User> findAllByOrderByEmailAsc();
+	User findByEmail(String email);
 
-	Optional<User> buscarPorEmail(String email);
 
-	Optional<User> buscarPorId(Long id);
 }

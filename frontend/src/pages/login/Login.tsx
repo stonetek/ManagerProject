@@ -18,12 +18,12 @@ function Login() {
       password
     };
     try {
-      const response = await api.post('auth/signin', data);
+      const response = await api.post('auth/token', data);
 
       localStorage.setItem('username', username)
       localStorage.setItem('accessToken', response.data.token);
 
-      history('/books')
+      history('/api/login')
     } catch (error) {
       alert('Login failed! Try again!');
     }
