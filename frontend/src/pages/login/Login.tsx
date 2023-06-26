@@ -18,12 +18,12 @@ function Login() {
       password
     };
     try {
-      const response = await api.post('auth/token', data);
+      const response = await api.post('/auth/token', data);
 
       localStorage.setItem('username', username)
       localStorage.setItem('accessToken', response.data.token);
 
-      history('/api/login')
+      history('/home')
     } catch (error) {
       alert('Login failed! Try again!');
     }
@@ -62,9 +62,9 @@ function Login() {
             </div>
 
             <div className="container-login-form-btn">
-              <Link to={'/home'}>
-                <button type="submit" className="login-form-btn">Login</button>
-              </Link>
+            
+                <button type="submit" onSubmit={login} className="login-form-btn">Login</button>
+             
             </div>
 
             <div className="text-center">
